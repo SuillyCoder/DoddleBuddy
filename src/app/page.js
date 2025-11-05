@@ -89,7 +89,7 @@ export default function Home() {
         </a>
 
         <a
-          href="nav/prompts"
+          href="/nav/prompts"
           className="block w-full"
         >
           <button className="w-full py-4 px-8 bg-blue-600 text-white text-xl font-semibold rounded-full hover:bg-blue-700 transition shadow-lg">
@@ -98,7 +98,7 @@ export default function Home() {
         </a>
 
         <a
-          href="nav/dev"
+          href="/nav/dev"
           className="block w-full"
         >
           <button className="w-full py-4 px-8 bg-blue-600 text-white text-xl font-semibold rounded-full hover:bg-blue-700 transition shadow-lg">
