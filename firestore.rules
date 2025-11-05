@@ -2,18 +2,37 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-
-    // This rule allows anyone with your Firestore database reference to view, edit,
-    // and delete all data in your Firestore database. It is useful for getting
-    // started, but it is configured to expire after 30 days because it
-    // leaves your app open to attackers. At that time, all client
-    // requests to your Firestore database will be denied.
-    //
-    // Make sure to write security rules for your app before that time, or else
-    // all client requests to your Firestore database will be denied until you Update
-    // your rules
-    match /{document=**} {
-      allow read, write: if request.time < timestamp.date(2025, 12, 5);
+    
+    // Users collection - users can only read/write their own data
+    match /users/{userId} {
+      // Allow read if authenticated and it's their own document
+      allow read: if request.auth != null && request.auth.uid == userId;
+      
+      // Allow create only if authenticated and creating their own document
+      allow create: if request.auth != null && request.auth.uid == userId;
+      
+      // Allow update only if authenticated and updating their own document
+      allow update: if request.auth != null && request.auth.uid == userId;
+      
+      // Allow delete only if authenticated and deleting their own document
+      allow delete: if request.auth != null && request.auth.uid == userId;
+      
+      // Subcollections within user document (if needed later)
+      match /{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+    
+    // Artists collection - read-only for all authenticated users
+    match /artists/{artistId} {
+      allow read: if true; // Public read access (for featured artists)
+      allow write: if false; // Only admins should write (handle via Admin SDK)
+    }
+    
+    // Featured artists collection - read-only for all users
+    match /featuredArtists/{date} {
+      allow read: if true; // Public read access
+      allow write: if false; // Only server/admin can write
     }
   }
 }
