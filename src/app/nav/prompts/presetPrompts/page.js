@@ -64,12 +64,6 @@ export default function PresetPromptsPage() {
 
         {/* Reference Image Section */}
         <div className="bg-white rounded-2xl shadow-xl p-8 mb-6">
-          <div className="text-center mb-6">
-            <div className="inline-block bg-gray-100 rounded-lg px-6 py-4 mb-4">
-              <p className="text-2xl font-bold text-gray-700">REF_IMAGE_1</p>
-            </div>
-          </div>
-
           {/* Theme Carousel */}
           <div className="flex items-center justify-center gap-4 mb-8">
             <button
