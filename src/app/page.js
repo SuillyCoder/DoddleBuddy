@@ -4,15 +4,19 @@ import { useState, useEffect } from 'react';
 import { auth, googleProvider } from '../../lib/firebase';
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 
-// Force dynamic rendering - prevents static generation
-export const dynamic = 'force-dynamic';
-
 export default function Home() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [signingIn, setSigningIn] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    
     // Listen for auth state changes
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -25,7 +29,7 @@ export default function Home() {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [mounted]);
 
   const migrateGuestData = async (userId) => {
     // TODO: Implement data migration from localStorage to Firestore
@@ -53,7 +57,8 @@ export default function Home() {
     }
   };
 
-  if (loading) {
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-xl text-gray-600">Loading...</div>
