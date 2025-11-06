@@ -39,7 +39,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-#Assets
-/New_Github_Pic.jpg
-artistAssets/
