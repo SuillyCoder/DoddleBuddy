@@ -9,12 +9,12 @@ import { getCurrentFeaturedArtist } from '../../../../lib/featuredArtists';
 const artstationArtistsPool = [
   {
     name: 'Bastien Grivet',
-    artstationUrl: 'https://www.artstation.com/bastien_grivet',
+    artstationUrl: 'https://www.artstation.com/grivetart',
     imageUrl: 'https://picsum.photos/seed/bastien/600/600',
   },
   {
     name: 'Magdalena Pagowska',
-    artstationUrl: 'https://www.artstation.com/magdalenapagowska',
+    artstationUrl: 'https://www.artstation.com/len-yan',
     imageUrl: 'https://picsum.photos/seed/magdalena/600/600',
   },
   {
@@ -24,12 +24,12 @@ const artstationArtistsPool = [
   },
   {
     name: 'Atey Ghailan',
-    artstationUrl: 'https://www.artstation.com/atey',
+    artstationUrl: 'https://www.artstation.com/snatti',
     imageUrl: 'https://picsum.photos/seed/atey/600/600',
   },
   {
     name: 'Even Amundsen',
-    artstationUrl: 'https://www.artstation.com/evenamundsen',
+    artstationUrl: 'https://www.artstation.com/mischeviouslittleelf',
     imageUrl: 'https://picsum.photos/seed/even/600/600',
   },
   {
@@ -39,7 +39,7 @@ const artstationArtistsPool = [
   },
   {
     name: 'Ian McQue',
-    artstationUrl: 'https://www.artstation.com/ianmcque',
+    artstationUrl: 'https://www.instagram.com/ianmcque/?hl=en',
     imageUrl: 'https://picsum.photos/seed/ian/600/600',
   },
   {
@@ -49,7 +49,7 @@ const artstationArtistsPool = [
   },
   {
     name: 'Gediminas Pranckevicius',
-    artstationUrl: 'https://www.artstation.com/gediminaspranckevicius',
+    artstationUrl: 'https://www.artstation.com/gedomenas',
     imageUrl: 'https://picsum.photos/seed/gediminas/600/600',
   },
   {

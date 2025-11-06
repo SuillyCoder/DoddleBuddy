@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { featuredArtists } from '../../../../lib/featuredArtists';
 
 export default function ArtistInspo() {
   const [artstationArtists, setArtstationArtists] = useState([]);
@@ -93,7 +92,10 @@ export default function ArtistInspo() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="p-4 text-center">
+              <div className="p-3 text-center font-semibold text-2xl text-gray-900">
+                  {artist.name}
+              </div>
+              <div className="p-3 text-center">
                 <a
                   href={artist.artstationUrl}
                   target="_blank"
@@ -122,7 +124,10 @@ export default function ArtistInspo() {
 
               {/* Right: Bio and Profile Button */}
               <div className="p-8 md:p-12 flex flex-col justify-center">
-                <p className="text-gray-700 text-lg leading-relaxed mb-8">
+                <div className="p-6 text-center font-semibold text-5xl text-gray-900">
+                  {mainArtist.name}
+                </div>
+                <p className="text-gray-700 text-lg text-justify leading-relaxed mb-8">
                   {mainArtist.bio}
                 </p>
                 <div className="text-center">
