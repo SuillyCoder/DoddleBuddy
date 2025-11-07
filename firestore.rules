@@ -3,52 +3,50 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     
-    // Users collection - users can only read/write their own data
+    // Users collection
     match /users/{userId} {
-      // Allow read if authenticated and it's their own document
       allow read: if request.auth != null && request.auth.uid == userId;
-      
-      // Allow create only if authenticated and creating their own document
       allow create: if request.auth != null 
                     && request.auth.uid == userId
                     && request.resource.data.userId == userId;
-      
-      // Allow update only if authenticated and updating their own document
       allow update: if request.auth != null && request.auth.uid == userId;
-      
-      // Allow delete only if authenticated and deleting their own document
       allow delete: if request.auth != null && request.auth.uid == userId;
     }
     
-    // Chat threads collection - users can only access their own threads
-    match /chatThreads/{threadId} {
-      // Allow read if authenticated and it's their thread
+    // Prompt chats collection - ADDED THIS
+    match /promptChats/{chatId} {
       allow read: if request.auth != null 
                   && resource.data.userId == request.auth.uid;
-      
-      // Allow create if authenticated and userId matches
       allow create: if request.auth != null 
                     && request.resource.data.userId == request.auth.uid;
-      
-      // Allow update if authenticated and it's their thread
       allow update: if request.auth != null 
                     && resource.data.userId == request.auth.uid;
-      
-      // Allow delete if authenticated and it's their thread
       allow delete: if request.auth != null 
                     && resource.data.userId == request.auth.uid;
     }
     
-    // Artists collection - read-only for all authenticated users
-    match /artists/{artistId} {
-      allow read: if true; // Public read access
-      allow write: if false; // Only admins via Admin SDK
+    // Chat threads collection
+    match /chatThreads/{threadId} {
+      allow read: if request.auth != null 
+                  && resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null 
+                    && request.resource.data.userId == request.auth.uid;
+      allow update: if request.auth != null 
+                    && resource.data.userId == request.auth.uid;
+      allow delete: if request.auth != null 
+                    && resource.data.userId == request.auth.uid;
     }
     
-    // Featured artists collection - read-only
+    // Artists collection
+    match /artists/{artistId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    
+    // Featured artists collection
     match /featuredArtists/{date} {
-      allow read: if true; // Public read access
-      allow write: if false; // Only server/admin
+      allow read: if true;
+      allow write: if false;
     }
   }
 }

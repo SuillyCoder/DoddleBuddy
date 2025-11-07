@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { auth, db } from '../../../../lib/firebase';
+import { auth, db } from '../../../../../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, updateDoc, arrayUnion, arrayRemove, getDoc } from 'firebase/firestore';
-import { fetchUserData } from '../../../../lib/mockData';
-import { uploadToCloudinary } from '../../../../lib/cloudinaryUpload';
+import { fetchUserData } from '../../../../../lib/mockData';
+import { uploadToCloudinary } from '../../../../../lib/cloudinaryUpload';
 import Link from 'next/link';
 
 export default function ReferenceGallery() {
@@ -50,10 +50,8 @@ export default function ReferenceGallery() {
 
     try {
       if (user) {
-        // Authenticated user - upload to Cloudinary
         const uploadedURLs = [];
         
-        // Process in batches of 3
         const batchSize = 3;
         for (let i = 0; i < files.length; i += batchSize) {
           const batch = files.slice(i, i + batchSize);
@@ -73,7 +71,6 @@ export default function ReferenceGallery() {
           uploadedURLs.push(...batchResults.filter(url => url !== null));
         }
         
-        // Update Firestore
         const userRef = doc(db, 'users', user.uid);
         await updateDoc(userRef, {
           referenceGalleryPics: arrayUnion(...uploadedURLs)
@@ -82,7 +79,6 @@ export default function ReferenceGallery() {
         setImages([...images, ...uploadedURLs]);
         alert(`${uploadedURLs.length} image(s) uploaded successfully!`);
       } else {
-        // Guest mode - create object URLs
         const objectURLs = files.map(file => URL.createObjectURL(file));
         const updatedImages = [...images, ...objectURLs];
         setImages(updatedImages);
@@ -102,7 +98,6 @@ export default function ReferenceGallery() {
   const handleDeleteImage = async (imageUrl, index) => {
     try {
       if (user) {
-        // Remove from Firestore
         const userRef = doc(db, 'users', user.uid);
         await updateDoc(userRef, {
           referenceGalleryPics: arrayRemove(imageUrl)
@@ -111,7 +106,6 @@ export default function ReferenceGallery() {
         setImages(images.filter((_, i) => i !== index));
         alert('Image deleted successfully!');
       } else {
-        // Guest mode
         const updatedImages = images.filter((_, i) => i !== index);
         setImages(updatedImages);
         sessionStorage.setItem('guest_reference_gallery', JSON.stringify(updatedImages));

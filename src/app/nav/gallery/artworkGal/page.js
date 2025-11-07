@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { auth, db } from '../../../../lib/firebase';
+import { auth, db } from '../../../../../lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, updateDoc, arrayUnion, arrayRemove, getDoc } from 'firebase/firestore';
-import { fetchUserData } from '../../../../lib/mockData';
-import { uploadToCloudinary } from '../../../../lib/cloudinaryUpload';
+import { fetchUserData } from '../../../../../lib/mockData';
+import { uploadToCloudinary } from '../../../../../lib/cloudinaryUpload';
 import Link from 'next/link';
 
 export default function ArtworkGallery() {
